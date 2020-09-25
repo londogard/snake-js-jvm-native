@@ -40,12 +40,23 @@ kotlin {
         isMingwX64 -> mingwX64("native")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
-
+    // sudo apt install libncurses5-dev
+    // sudo apt install libncursesw5-dev
+    // sudo apt install gcc-multilib
     nativeTarget.apply {
         binaries {
             executable {
                 entryPoint = "main"
             }
+        }
+        val main by compilations.getting
+        val interop by main.cinterops.creating {
+            defFile(project.file("ncurses.def"))
+            packageName("ncurses")
+            includeDirs(
+                "/usr/local/Cellar/ncurses/6.1/include/",
+                "/usr/local/Cellar/ncurses/6.1/include/ncursesw"
+            )
         }
     }
     sourceSets {

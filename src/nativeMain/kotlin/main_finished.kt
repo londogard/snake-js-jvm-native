@@ -1,7 +1,8 @@
-//import kotlinx.cinterop.CPointer
-//import kotlinx.cinterop.memScoped
-//import ncurses.*
+import kotlinx.cinterop.memScoped
+import ncurses.*
 import Direction.*
+import kotlinx.cinterop.CPointer
+
 
 fun main(): Unit = memScoped {
     initscr()
@@ -15,7 +16,7 @@ fun main(): Unit = memScoped {
         height = 10,
         snake = Snake(
             cells = listOf(Cell(4, 0), Cell(3, 0), Cell(2, 0), Cell(1, 0), Cell(0, 0)),
-            direction = right
+            direction = RIGHT
         )
     )
 
@@ -28,10 +29,10 @@ fun main(): Unit = memScoped {
 
         input = wgetch(window)
         val direction = when (input.toChar()) {
-            'i'  -> up
-            'j'  -> left
-            'k'  -> down
-            'l'  -> right
+            'i'  -> UP
+            'j'  -> LEFT
+            'k'  -> DOWN
+            'l'  -> RIGHT
             else -> null
         }
 
@@ -46,6 +47,7 @@ private fun CPointer<WINDOW>.draw(game: Game) {
     game.apples.cells.forEach { mvwprintw(this, it.y + 1, it.x + 1, ".") }
     game.snake.tail.forEach { mvwprintw(this, it.y + 1, it.x + 1, "o") }
     game.snake.head.let { mvwprintw(this, it.y + 1, it.x + 1, "Q") }
+
     if (game.isOver) {
         mvwprintw(this, 0, 6, "Game Over")
         mvwprintw(this, 1, 3, "Your score is ${game.score}")
