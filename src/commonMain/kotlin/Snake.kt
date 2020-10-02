@@ -3,8 +3,8 @@ data class Snake(
     val direction: Direction,
     val eatenApples: Int = 0
 ) {
-    val head = cells.first()
-    val tail = cells.drop(1)
+    val head: Cell = cells.first()
+    val tail: List<Cell> = cells.drop(1)
 
     fun move(): Snake {
         val newHead = head.move(direction)
@@ -15,7 +15,7 @@ data class Snake(
         )
     }
 
-    fun turn(newDirection: Direction?) =
+    fun turn(newDirection: Direction?): Snake =
         if (newDirection == null || newDirection.isOppositeTo(direction)) this
         else copy(direction = newDirection)
 

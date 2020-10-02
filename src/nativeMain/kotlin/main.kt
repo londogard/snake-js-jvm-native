@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 
 fun main(): Unit = memScoped {
     initscr()
+
     defer { endwin() }
     noecho()
     curs_set(0)
@@ -47,7 +48,7 @@ private fun CPointer<WINDOW>.draw(game: Game) {
     game.apples.cells.forEach { mvwprintw(this, it.y + 1, it.x + 1, ".") }
     game.snake.tail.forEach { mvwprintw(this, it.y + 1, it.x + 1, "o") }
     game.snake.head.let { mvwprintw(this, it.y + 1, it.x + 1, "Q") }
-    
+
     if (game.isOver) {
         mvwprintw(this, 0, 6, "Game Over")
         mvwprintw(this, 1, 3, "Your score is ${game.score}")

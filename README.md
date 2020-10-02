@@ -1,6 +1,9 @@
 # snake-js-jvm-native
 A Snake implementation that works for JS, JVM &amp; Native targets.
 
+    // sudo apt install libncurses5-dev
+    // sudo apt install libncursesw5-dev
+    // sudo apt install gcc-multilib
 
 ## TODO
 

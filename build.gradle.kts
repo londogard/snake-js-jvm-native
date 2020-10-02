@@ -8,6 +8,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
 kotlin {
     jvm {
         compilations.all {
@@ -32,6 +33,7 @@ kotlin {
             }
         }
     }
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
@@ -40,9 +42,7 @@ kotlin {
         isMingwX64 -> mingwX64("native")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
-    // sudo apt install libncurses5-dev
-    // sudo apt install libncursesw5-dev
-    // sudo apt install gcc-multilib
+
     nativeTarget.apply {
         binaries {
             executable {
