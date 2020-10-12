@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform") version "1.4.10"
     application
 }
+
 group = "com.londogard"
 version = "1.0-SNAPSHOT"
 

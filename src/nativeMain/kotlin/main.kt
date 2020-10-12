@@ -30,10 +30,10 @@ fun main(): Unit = memScoped {
 
         input = wgetch(window)
         val direction = when (input.toChar()) {
-            'i'  -> UP
-            'j'  -> LEFT
-            'k'  -> DOWN
-            'l'  -> RIGHT
+            'w','i'  -> UP
+            'a','j'  -> LEFT
+            's','k'  -> DOWN
+            'd','l'  -> RIGHT
             else -> null
         }
 

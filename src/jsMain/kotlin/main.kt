@@ -7,25 +7,26 @@ const val background = "#000000"
 const val wall = "#aaaaaa"
 const val apple = "#ff3232"
 const val snake = "#00ff00"
-const val snakedeadhead = "#0000ff"
+const val snakeHead = "#2c7507"
+const val snakeDeadHead = "#0000ff"
 const val overlaybg = "#77777777"
 const val overlaytext = "#ffffff"
 
 fun main() {
+    console.log("Hello, Kotlin/JS!")
+
     val canvas = document.getElementById("snake-canvas") as HTMLCanvasElement
-    val game = Game(20, 10, snake = Snake(
-        cells = listOf(Cell(4, 0), Cell(3, 0), Cell(2, 0), Cell(1, 0), Cell(0, 0)),
-        direction = Direction.RIGHT
-    ))
+    var game = Game(
+        20, 10, snake = Snake(
+            cells = listOf(Cell(4, 0), Cell(3, 0), Cell(2, 0), Cell(1, 0), Cell(0, 0)),
+            direction = Direction.RIGHT
+        )
+    )
 
-    // window.onresize = { scaleCanvas(canvas, window); render(canvas, game) }
-    canvas.width = game.width
-    canvas.height = game.height
-    // scaleCanvas(canvas, window)
     render(canvas, game)
-    document.onkeydown = { onkeydown(game, it) }
-
-    window.setInterval({ game.update(game.snake.direction); render(canvas, game) }, 100)
+    var dir: Direction = game.snake.direction
+    document.onkeydown = { onkeydown(it).also { dir = it } }
+    window.setInterval({ game = game.update(dir); render(canvas, game) }, 200)
 }
 
 fun render(canvas: HTMLCanvasElement, game: Game) {
@@ -36,60 +37,42 @@ fun render(canvas: HTMLCanvasElement, game: Game) {
     val gridSizeX: Double = (canvas.width.toDouble() - 1) / game.width
     val gridSizeY: Double = (canvas.height.toDouble() - 1) / game.height
 
-    fun drawSquare(x: Int, y: Int) {
+    fun drawSquare(cell: Cell) {
         ctx.fillRect(
-            x * gridSizeX + 1, y * gridSizeY + 1,
+            cell.x * gridSizeX + 1, cell.y * gridSizeY + 1,
             gridSizeX - 1, gridSizeY - 1
         )
     }
 
-    ctx.fillStyle = wall
-    for (x in 0 until game.width) {
-        drawSquare(x, 0)
-        drawSquare(x, game.height - 1)
-    }
-    for (y in 1 until game.height - 1) {
-        drawSquare(0, y)
-        drawSquare(game.width - 1, y)
-    }
-
-    ctx.fillStyle = snake
-    game.snake.tail.forEach { p -> drawSquare(p.x, p.y) }
-    //if (game.isOver) {
-    //
-    //}
-    //if (!game.snake.alive) {
-    //    val head = game.snake.body.first()
-    //    ctx.fillStyle = snakedeadhead
-    //    drawSquare(head.x, head.y)
-    //}
-
     ctx.fillStyle = apple
-    game.apples.cells.forEach { p -> drawSquare(p.x, p.y) }
+    game.apples.cells.forEach(::drawSquare)
+    ctx.fillStyle = snake
+    game.snake.tail.forEach(::drawSquare)
+    ctx.fillStyle = if (game.isOver) snakeDeadHead else snakeHead
+    drawSquare(game.snake.head)
 
-    if (game.isOver) {
-        ctx.fillStyle = overlaybg
-        ctx.fillRect(
-            0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
 
-        ctx.fillStyle = overlaytext
-        ctx.textBaseline = CanvasTextBaseline.MIDDLE
-        ctx.textAlign = CanvasTextAlign.CENTER
-        ctx.font = (canvas.height * 0.07).toString() + "px sans-serif"
-        ctx.fillText(
-            "Score: ${game.snake.cells.size}.  Press SPACE.",
-            canvas.width / 2.0,
-            canvas.height / 2.0
-        )
-    }
+    //if (game.isOver) {
+    //    ctx.fillStyle = overlaybg
+    //    ctx.fillRect(
+    //        0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
+//
+    //    ctx.fillStyle = overlaytext
+    //    ctx.textBaseline = CanvasTextBaseline.MIDDLE
+    //    ctx.textAlign = CanvasTextAlign.CENTER
+    //    ctx.font = (canvas.height * 0.07).toString() + "px sans-serif"
+    //    ctx.fillText(
+    //        "Score: ${game.snake.cells.size}.  Press SPACE.",
+    //        canvas.width / 2.0,
+    //        canvas.height / 2.0
+    //    )
+    //}
 }
 
-private fun onkeydown(game: Game, e: KeyboardEvent) {
-    when (e.key) {
-        "ArrowUp", "w" -> game.snake.turn(Direction.UP)
-        "ArrowDown", "s" -> game.snake.turn(Direction.DOWN)
-        "ArrowLeft", "a" -> game.snake.turn(Direction.LEFT)
-        "ArrowRight", "d" -> game.snake.turn(Direction.RIGHT)
-        "q" -> null
-    }
+private fun onkeydown(e: KeyboardEvent): Direction = when (e.key) {
+    "ArrowUp", "w", "i" -> Direction.UP
+    "ArrowDown", "s", "k" -> Direction.DOWN
+    "ArrowLeft", "a", "j" -> Direction.LEFT
+    "ArrowRight", "d", "l" -> Direction.RIGHT
+    else -> Direction.DOWN
 }

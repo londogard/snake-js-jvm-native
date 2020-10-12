@@ -1,7 +1,7 @@
 import com.soywiz.korge.gradle.*
 
 plugins {
-	kotlin("multiplatform") version "1.3.72"
+	kotlin("multiplatform") version "1.4.10"
 }
 
 buildscript {
@@ -13,7 +13,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin:1.15.0.0")
+		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin:2.0.0-alpha")
 	}
 }
 
