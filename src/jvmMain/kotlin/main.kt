@@ -41,19 +41,19 @@ class Board : JPanel() {
         preferredSize = Dimension(game.width * scalingFactor.toInt(), game.height * scalingFactor.toInt())
     }
 
+    private fun Graphics2D.render(color: Color, cells: Iterable<Cell>) {
+        this.color = color
+        cells.forEach { cell -> fill(Rectangle(cell.x, cell.y, 1, 1)) }
+    }
+
     override fun paintComponent(g: Graphics?) {
         super.paintComponent(g)
         val g2d = g as Graphics2D
         g2d.scale(scalingFactor, scalingFactor)
 
-        g2d.color = Color.RED
-        game.apples.cells.forEach { g2d.fill(Rectangle(it.x, it.y, 1, 1)) }
-
-        g2d.color = Color.GREEN
-        game.snake.tail.forEach { g2d.fill(Rectangle(it.x, it.y,1, 1)) }
-
-        g2d.color = Color.YELLOW
-        game.snake.head.let { g2d.fill(Rectangle(it.x, it.y, 1, 1)) }
+        g2d.render(Color.RED, game.apples.cells)
+        g2d.render(Color.GREEN, game.snake.tail)
+        g2d.render(Color.YELLOW, listOf(game.snake.head))
     }
 }
 
@@ -69,7 +69,7 @@ class GUI: JFrame() {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     EventQueue.invokeLater {
         val ex = GUI()
         ex.isVisible = true
