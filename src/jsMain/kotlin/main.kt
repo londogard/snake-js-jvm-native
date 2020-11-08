@@ -14,7 +14,8 @@ fun main() {
         20, 10, snake = Snake(
             cells = listOf(Cell(4, 0), Cell(3, 0), Cell(2, 0), Cell(1, 0), Cell(0, 0)),
             direction = Direction.RIGHT
-        )
+        ),
+        apples = Apples(20, 10)
     )
 
     render(canvas, game)
@@ -31,12 +32,12 @@ fun CanvasRenderingContext2D.renderCell(color: String, cells: Iterable<Cell>, gr
 }
 
 fun render(canvas: HTMLCanvasElement, game: Game) {
-    val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-    ctx.fillStyle = background
-    ctx.fillRect(0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
     val gridSizeX: Double = (canvas.width.toDouble() - 1) / game.width
     val gridSizeY: Double = (canvas.height.toDouble() - 1) / game.height
+    val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
+    ctx.fillStyle = background
+    ctx.fillRect(0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
     ctx.renderCell(apple, game.apples.cells, gridSizeX, gridSizeY)
     ctx.renderCell(snake, game.snake.tail, gridSizeX, gridSizeY)
     ctx.renderCell(snakeHead, listOf(game.snake.head), gridSizeX, gridSizeY)
