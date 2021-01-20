@@ -13,3 +13,7 @@ First of, grab ncurses!
     // sudo apt install libncursesw5-dev
     // sudo apt install gcc-multilib 
 ```
+
+...
+
+This is the finished version
