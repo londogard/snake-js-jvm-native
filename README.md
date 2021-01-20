@@ -13,3 +13,5 @@ First of, grab ncurses!
     // sudo apt install libncursesw5-dev
     // sudo apt install gcc-multilib 
 ```
+
+// Snake sprite sheet is 64x64 px per item!
