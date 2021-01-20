@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/londogard/snake-js-jvm-native)
+
 # snake-js-jvm-native
 A Snake implementation that works for JS, JVM &amp; Native targets.
 
@@ -5,13 +7,10 @@ Find the full blog [here](https://blog.londogard.com/gradle/kotlin/game/multipla
 
 Download Zip [here](https://github.com/londogard/snake-js-jvm-native/archive/master.zip) or clone project from [github](https://github.com/londogard/snake-js-jvm-native).
 
-Open with [IntelliJ Community](https://www.jetbrains.com/idea/download/) or [VS Code](https://code.visualstudio.com/) or online via GitPod.
+Open with [IntelliJ Community](https://www.jetbrains.com/idea/download/).
 
 Run JS: `./gradlew jsBrowserDevelopmentRun`
-Run JVM: `./gradlew run`
-Run Native: `./gradlew runDebugExecutableNative`
-
-But it's **way** easier to run through IntelliJ.
+JVM/Native is definiately easiest to run through IntelliJ.
 
 ### Native Installation of `ncurses`
 Requires Linux or MacOS.
