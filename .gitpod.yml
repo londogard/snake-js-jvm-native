@@ -1,0 +1,7 @@
+tasks:
+  - init: ./gradlew clean build
+    command: ./gradlew clean build
+
+vscode:
+  extensions:
+    - fwcd.kotlin@0.2.20:ccfuG959FU+nPLdTMXbqzg==
