@@ -5,10 +5,13 @@ Find the full blog [here](https://blog.londogard.com/gradle/kotlin/game/multipla
 
 Download Zip [here](https://github.com/londogard/snake-js-jvm-native/archive/master.zip) or clone project from [github](https://github.com/londogard/snake-js-jvm-native).
 
-Open with [IntelliJ Community](https://www.jetbrains.com/idea/download/).
+Open with [IntelliJ Community](https://www.jetbrains.com/idea/download/) or [VS Code](https://code.visualstudio.com/) or online via GitPod.
 
 Run JS: `./gradlew jsBrowserDevelopmentRun`
-JVM/Native is definiately easiest to run through IntelliJ.
+Run JVM: `./gradlew run`
+Run Native: `./gradlew runDebugExecutableNative`
+
+But it's **way** easier to run through IntelliJ.
 
 ### Native Installation of `ncurses`
 Requires Linux or MacOS.
