@@ -47,7 +47,7 @@ kotlin {
     nativeTarget.apply {
         binaries {
             executable {
-                entryPoint = "main"
+                entryPoint = "mainNative"
             }
         }
         val main by compilations.getting
